@@ -10,7 +10,6 @@ let lenT = T.length;
 let lenS = S.length;
 
 alph = new Array();
-alphbet = new Array();
 
 //Определяем алфавит строки T
 for( i = 0; i < lenT; i++)
