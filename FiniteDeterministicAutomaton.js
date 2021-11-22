@@ -1,12 +1,20 @@
-let S = 'anansasananaasananaasananasananas';
-let T = 'ananas';
+let fs = require('fs');
+let arg = process.argv;
+
+let S = fs.readFileSync(arg[2]);
+S = S.toString();
+let T = fs.readFileSync(arg[3]);
+T = T.toString();
+
 let lenT = T.length;
 let lenS = S.length;
-alph = new Array();
 
-//Определяем алфавит строки t
+alph = new Array();
+alphbet = new Array();
+
+//Определяем алфавит строки T
 for( i = 0; i < lenT; i++)
-	alph[T.charAt(i)]=0;
+	alph[T.charAt(i)] = 0;
 
 //В двумерном массиве del храним таблицу переходов
 del = new Array(lenT+1);
@@ -31,18 +39,20 @@ for(j=0; j <= lenT; j++){
 	out = '';
 	for (i in alph)
 		out += del[j][i] + ' ';
-	console.log(out);
+	console.log('   ',out);
 }
 
 let state = 0;
 let coun = 0;
 result = new Array();
 for (i = 0; i < lenS; i++){
-	state = del[state][S.charAt(i)];
-	if (state == lenT){
-		coun++;
-		idx = i - lenT + 1;
-		result.push(idx);
+	if(S.charAt(i) in alph ){
+		state = del[state][S.charAt(i)];
+		if (state == lenT){
+			coun++;
+			idx = i - lenT + 1;
+			result.push(idx);
+		}
 	}
 }
 console.log('\nСтрока:',S);
